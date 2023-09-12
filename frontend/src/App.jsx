@@ -22,7 +22,7 @@ const App = () => {
     const valueSearch = value;
     const options = {
       method: "POST",
-      url: "http://localhost:5000/api/data",
+      url: "https://weather-app-server-oeke.onrender.com/api/data",
       headers: {
         "Content-Type": "application/json",
       },
