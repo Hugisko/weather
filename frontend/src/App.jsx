@@ -15,7 +15,6 @@ const App = () => {
   const [loading, setLoading] = useState(true);
 
   const searchCity = async (e, value) => {
-    
     if (e !== null) {
       e.preventDefault();
     }
@@ -30,7 +29,7 @@ const App = () => {
     };
 
     setLoading(true);
-    try {     
+    try {
       const response = await fetch(options.url, options);
       const data = await response.json();
       if (data.status === "success") {
@@ -59,14 +58,6 @@ const App = () => {
     searchCity(null, "Kosice");
   }, []);
 
-  if(loading){
-    return (
-      <main>
-        <Loading />
-      </main>
-    )
-  }
-
   return (
     <main>
       <div className="overlay"></div>
@@ -92,22 +83,26 @@ const App = () => {
             </button>
             {error && <p className="error-message">Wrong input</p>}
           </form>
-          <div className="weather loading">
-            <span className="city">{city}</span>
-            <p className="temperature">
-              <span className="temp">{temperature}</span> °C
-            </p>
-            <div className="description">
-              <img src={image} alt="image" />
-              <span>{description}</span>
+          {loading ? (
+            <Loading />
+          ) : (
+            <div className="weather">
+              <span className="city">{city}</span>
+              <p className="temperature">
+                <span className="temp">{temperature}</span> °C
+              </p>
+              <div className="description">
+                <img src={image} alt="image" />
+                <span>{description}</span>
+              </div>
+              <p>
+                Humidity: <span className="humid">{humidity}</span>%
+              </p>
+              <p>
+                Wind: <span className="wind">{wind}</span> km/h
+              </p>
             </div>
-            <p>
-              Humidity: <span className="humid">{humidity}</span>%
-            </p>
-            <p>
-              Wind: <span className="wind">{wind}</span> km/h
-            </p>
-          </div>
+          )}
         </div>
       </div>
     </main>
